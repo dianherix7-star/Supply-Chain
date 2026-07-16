@@ -13,6 +13,7 @@ class Country extends Model
         'country_name',
         'capital',
         'region',
+        'subregion',
         'population',
         'currency',
         'flag',

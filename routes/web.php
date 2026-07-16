@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\WeatherController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -28,3 +29,8 @@ Route::get('/countries/import', [CountryController::class, 'import'])
 // CRUD Country
 Route::resource('countries', CountryController::class)
     ->except(['show']);
+
+// ===== Tahap 4: Weather API =====
+Route::get('/weather', [WeatherController::class, 'index'])->name('weather.index');
+Route::post('/weather/fetch-all', [WeatherController::class, 'fetchAll'])->name('weather.fetch-all');
+Route::post('/weather/fetch/{country}', [WeatherController::class, 'fetchOne'])->name('weather.fetch-one');
