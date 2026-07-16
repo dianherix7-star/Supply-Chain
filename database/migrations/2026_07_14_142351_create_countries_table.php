@@ -9,27 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up(): void
+    public function up(): void
 {
     Schema::create('countries', function (Blueprint $table) {
-
         $table->id();
-
-        $table->string('country_code')->unique();
         $table->string('country_name');
-
+        $table->string('country_code',10);
         $table->string('capital')->nullable();
         $table->string('region')->nullable();
-
         $table->bigInteger('population')->nullable();
-
         $table->string('currency')->nullable();
-
-        $table->text('flag')->nullable();
-
-        $table->decimal('latitude',10,6)->nullable();
-        $table->decimal('longitude',10,6)->nullable();
-
+        $table->string('flag')->nullable();
         $table->timestamps();
     });
 }

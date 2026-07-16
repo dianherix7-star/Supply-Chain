@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExchangeRate extends Model
 {
-    //
+    protected $fillable = [
+        'currency',
+        'exchange_rate',
+        'updated_at_api'
+    ];
 }
