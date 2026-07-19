@@ -12,10 +12,7 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
-public function watchlists()
-{
-    return $this->hasMany(Watchlist::class);
-}   
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,6 +34,16 @@ public function watchlists()
         'password',
         'remember_token',
     ];
+
+    public function watchlists()
+    {
+        return $this->hasMany(Watchlist::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
 
     /**
      * Get the attributes that should be cast.

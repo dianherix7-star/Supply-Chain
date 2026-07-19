@@ -12,8 +12,19 @@ class WeatherData extends Model
         'rainfall',
         'wind_speed',
         'storm_risk',
-        'recorded_at'
+        'recorded_at',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'recorded_at' => 'datetime',
+            'temperature' => 'float',
+            'rainfall'    => 'float',
+            'wind_speed'  => 'float',
+            'storm_risk'  => 'integer',
+        ];
+    }
 
     public function country()
     {

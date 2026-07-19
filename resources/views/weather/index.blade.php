@@ -9,6 +9,7 @@
         <h4 class="fw-bold mb-1">☁️ Weather Data</h4>
         <small class="text-muted">Data cuaca real-time dari <strong>Open-Meteo API</strong> (gratis, tanpa API key)</small>
     </div>
+    @if(Auth::user()->isAdmin())
     <form action="{{ route('weather.fetch-all') }}" method="POST">
         @csrf
         <button type="submit" class="btn btn-primary"
@@ -16,6 +17,7 @@
             <i class="bi bi-cloud-download me-1"></i> Fetch Semua Negara
         </button>
     </form>
+    @endif
 </div>
 
 @if(session('success'))
@@ -127,10 +129,11 @@
                     <td class="ps-4 text-muted">{{ $weatherData->firstItem() + $loop->index }}</td>
 
                     <td class="text-center">
-                        @if($item->country->flag)
-                            <img src="{{ $item->country->flag }}" width="40" height="27"
+                        @if($item->country->flag_url)
+                            <img src="{{ $item->country->flag_url }}" width="40" height="27"
                                  style="border:1px solid #e2e8f0;border-radius:3px;object-fit:cover;"
-                                 alt="{{ $item->country->country_code }}">
+                                 alt="{{ $item->country->country_name }}"
+                                 loading="lazy">
                         @endif
                     </td>
 

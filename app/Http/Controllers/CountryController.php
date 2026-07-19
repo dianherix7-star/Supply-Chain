@@ -14,9 +14,12 @@ class CountryController extends Controller
         $query = Country::query();
 
         if ($request->filled('search')) {
-            $query->where('country_name', 'like', '%' . $request->search . '%')
-                  ->orWhere('country_code', 'like', '%' . $request->search . '%')
-                  ->orWhere('region', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('country_name', 'like', '%' . $search . '%')
+                  ->orWhere('country_code', 'like', '%' . $search . '%')
+                  ->orWhere('region', 'like', '%' . $search . '%');
+            });
         }
 
         $countries = $query->latest()->paginate(10)->withQueryString();
@@ -43,6 +46,7 @@ class CountryController extends Controller
             'country_code' => strtoupper($request->country_code),
             'capital'      => $request->capital,
             'region'       => $request->region,
+            'subregion'    => $request->subregion,
             'population'   => $request->population,
             'currency'     => $request->currency,
             'flag'         => $request->flag,
@@ -73,6 +77,7 @@ class CountryController extends Controller
             'country_code' => strtoupper($request->country_code),
             'capital'      => $request->capital,
             'region'       => $request->region,
+            'subregion'    => $request->subregion,
             'population'   => $request->population,
             'currency'     => $request->currency,
             'flag'         => $request->flag,
@@ -141,7 +146,8 @@ class CountryController extends Controller
                             ?? 'Unknown',
                         'capital'    => $item['capital'][0] ?? null,
                         'region'     => $item['region'] ?? null,
-                        'population' => $item['population'] ?? null,   // ✅ Tersedia di v3.1
+                        'subregion'  => $item['subregion'] ?? null,
+                        'population' => $item['population'] ?? null,
                         'currency'   => $currency,
                         'flag'       => $flagUrl,
                         'latitude'   => $item['latlng'][0] ?? null,

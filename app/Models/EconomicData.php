@@ -13,8 +13,20 @@ class EconomicData extends Model
         'population',
         'exports',
         'imports',
-        'year'
+        'year',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'gdp'        => 'float',
+            'inflation'  => 'float',
+            'population' => 'float',
+            'exports'    => 'float',
+            'imports'    => 'float',
+            'year'       => 'integer',
+        ];
+    }
 
     public function country()
     {

@@ -35,4 +35,17 @@ return [
         ],
     ],
 
+    // ===== Supply Chain API Keys =====
+    'news_api' => [
+        'key' => env('NEWS_API_KEY'),
+    ],
+
+    'mediastack' => [
+        'key' => env('MEDIASTACK_API_KEY'),
+    ],
+
+    'gnews' => [
+        'key' => env('GNEWS_API_KEY'),
+    ],
+
 ];
