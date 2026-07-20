@@ -41,10 +41,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         pgsql \
         mbstring \
         bcmath \
-<<<<<<< HEAD
         xml \
-=======
->>>>>>> f5dfc29 (Memperbaiki tampilan)
         zip \
         gd \
         opcache
