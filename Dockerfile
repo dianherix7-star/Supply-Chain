@@ -33,19 +33,16 @@ RUN apk add --no-cache \
     supervisor
 
 # Install PHP extensions (MySQL + PostgreSQL + common Laravel)
+# Note: pdo, tokenizer, ctype, and fileinfo are bundled/enabled by default in the php:8.3 base image
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
-        pdo \
         pdo_sqlite \
         pdo_mysql \
         pdo_pgsql \
         pgsql \
         mbstring \
-        tokenizer \
         bcmath \
-        ctype \
         xml \
-        fileinfo \
         zip \
         gd \
         opcache
