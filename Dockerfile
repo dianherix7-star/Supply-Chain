@@ -36,13 +36,15 @@ RUN apk add --no-cache \
 # Note: pdo, tokenizer, ctype, and fileinfo are bundled/enabled by default in the php:8.3 base image
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
-        pdo_sqlite \
         pdo_mysql \
         pdo_pgsql \
         pgsql \
         mbstring \
         bcmath \
+<<<<<<< HEAD
         xml \
+=======
+>>>>>>> f5dfc29 (Memperbaiki tampilan)
         zip \
         gd \
         opcache
@@ -76,8 +78,8 @@ COPY docker/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
-# Render sets PORT env var, default 10000
-ENV PORT=10000
-EXPOSE 10000
+# Railway automatically injects PORT, but default to 8080 if not present
+ENV PORT=8080
+EXPOSE 8080
 
 ENTRYPOINT ["/entrypoint.sh"]

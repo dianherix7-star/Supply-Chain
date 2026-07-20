@@ -1,10 +1,10 @@
 #!/bin/sh
 set -e
 
-echo "🚀 Starting Supply Chain Global on Render..."
+echo "🚀 Starting Supply Chain Global on Railway..."
 
-# Render sets PORT env variable automatically (default: 10000)
-PORT="${PORT:-10000}"
+# Railway sets PORT env variable automatically
+PORT="${PORT:-8080}"
 
 echo "📡 Using port: $PORT"
 
