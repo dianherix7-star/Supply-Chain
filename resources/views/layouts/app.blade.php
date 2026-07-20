@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,24 +14,24 @@
 
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --primary-light: rgba(79, 70, 229, 0.06);
-            --background: #f8fafc;
-            --sidebar-bg: #0f172a;
-            --sidebar-border: rgba(255, 255, 255, 0.05);
-            --card-bg: #ffffff;
-            --card-border: #f1f5f9;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
+            --primary: #dc2626; /* Red */
+            --primary-hover: #b91c1c;
+            --primary-light: rgba(220, 38, 38, 0.1);
+            --background: #000000; /* Black */
+            --sidebar-bg: #0a0a0a;
+            --sidebar-border: rgba(255, 255, 255, 0.1);
+            --card-bg: #121212;
+            --card-border: #262626;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #262626;
             --radius-lg: 12px;
             --radius-md: 10px;
             --radius-sm: 6px;
             --transition: all 0.2s ease-in-out;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
         }
 
         * { 
@@ -55,11 +55,11 @@
             background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
+            background: #3f3f46;
             border-radius: 20px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+            background: #52525b;
         }
 
         /* ===== SIDEBAR ===== */
@@ -189,7 +189,7 @@
         /* ===== TOPBAR ===== */
         .topbar {
             height: 64px;
-            background: white;
+            background: var(--sidebar-bg);
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
@@ -213,7 +213,7 @@
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-sm);
-            background: white;
+            background: var(--card-bg);
             transition: var(--transition);
         }
 
@@ -235,14 +235,14 @@
             position: relative;
             overflow: hidden;
             border: 1px solid var(--border-color);
-            background: #ffffff;
+            background: var(--card-bg);
             transition: var(--transition);
         }
 
         .stat-card:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
-            border-color: #cbd5e1;
+            border-color: var(--primary);
         }
 
         /* ===== BADGES ===== */
@@ -259,42 +259,48 @@
         /* ===== TABLE ===== */
         .table {
             margin-bottom: 0;
+            color: var(--text-main);
         }
         .table th { 
             font-size: 0.75rem; 
             font-weight: 600; 
             text-transform: uppercase; 
             letter-spacing: 0.05em; 
-            background-color: #f8fafc;
-            color: #475569;
+            background-color: var(--card-bg);
+            color: var(--text-muted);
             border-bottom: 1px solid var(--border-color);
             padding: 12px 24px;
+            white-space: nowrap;
         }
         .table td { 
             vertical-align: middle; 
             font-size: 0.85rem;
             padding: 14px 24px;
-            border-bottom: 1px solid #f1f5f9;
-            color: #334155;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
+            background-color: transparent;
+            white-space: nowrap;
         }
         .table-hover tbody tr:hover {
-            background-color: #f8fafc;
+            background-color: rgba(255, 255, 255, 0.02);
         }
 
         /* ===== FORM INPUTS ===== */
         .form-control, .form-select {
             border-radius: 8px;
-            border: 1px solid #cbd5e1;
+            border: 1px solid var(--border-color);
             padding: 8px 12px;
             font-size: 0.875rem;
             color: var(--text-main);
-            background-color: #ffffff;
+            background-color: var(--card-bg);
             transition: var(--transition);
         }
         .form-control:focus, .form-select:focus {
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
             outline: none;
+            background-color: var(--card-bg);
+            color: var(--text-main);
         }
 
         /* ===== BUTTONS ===== */
@@ -306,26 +312,40 @@
             transition: var(--transition);
         }
         .btn-primary {
-            background-color: #4f46e5;
-            border: 1px solid #4338ca;
+            background-color: var(--primary);
+            border: 1px solid var(--primary-hover);
             color: #ffffff;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
         .btn-primary:hover {
-            background-color: #4338ca;
-            border-color: #3730a3;
+            background-color: var(--primary-hover);
+            border-color: #991b1b;
             color: #ffffff;
         }
         .btn-outline-secondary {
-            border-color: #cbd5e1;
-            color: #475569;
-            background-color: #ffffff;
+            border-color: var(--border-color);
+            color: var(--text-main);
+            background-color: transparent;
         }
         .btn-outline-secondary:hover {
-            background-color: #f8fafc;
-            color: #0f172a;
-            border-color: #94a3b8;
+            background-color: var(--border-color);
+            color: var(--text-main);
+            border-color: var(--text-muted);
         }
+
+        /* ===== THEME OVERRIDES ===== */
+        .text-dark { color: var(--text-main) !important; }
+        .text-muted { color: var(--text-muted) !important; }
+        .text-secondary { color: var(--text-muted) !important; }
+        .bg-white { background-color: var(--card-bg) !important; }
+        .bg-light { background-color: rgba(255, 255, 255, 0.05) !important; color: var(--text-main) !important; }
+        .border { border-color: var(--border-color) !important; }
+        
+        /* ===== PAGINATION ===== */
+        .pagination { --bs-pagination-bg: var(--card-bg); --bs-pagination-border-color: var(--border-color); --bs-pagination-color: var(--text-main); --bs-pagination-hover-bg: var(--sidebar-bg); --bs-pagination-hover-color: var(--text-main); }
+        .page-link { background-color: var(--card-bg); border-color: var(--border-color); color: var(--text-main); }
+        .page-item.active .page-link { background-color: var(--primary); border-color: var(--primary); color: white; }
+        .page-item.disabled .page-link { background-color: var(--sidebar-bg); border-color: var(--border-color); color: var(--text-muted); }
 
         /* ===== MISC ===== */
         .page-main { 
@@ -432,8 +452,8 @@
 
     <div class="sidebar-footer">
         <div class="d-flex align-items-center gap-2 px-2 mb-2">
-            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
-                 style="width:32px;height:32px;font-size:14px;background:linear-gradient(135deg,#3b82f6,#8b5cf6)!important;">
+            <div class="rounded-circle d-flex align-items-center justify-content-center"
+                 style="width:32px;height:32px;font-size:14px;background:linear-gradient(135deg,#dc2626,#991b1b)!important;">
                 <i class="bi bi-person-fill text-white" style="font-size:14px;"></i>
             </div>
             <div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +11,14 @@
 
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg-color: #f8fafc;
+            --primary: #dc2626;
+            --primary-hover: #b91c1c;
+            --primary-light: rgba(220, 38, 38, 0.1);
+            --bg-color: #000000;
+            --card-bg: #121212;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #262626;
         }
 
         * {
@@ -28,7 +33,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            color: #0f172a;
+            color: var(--text-main);
             position: relative;
             overflow: hidden;
         }
@@ -43,22 +48,22 @@
         .brand-logo {
             width: 48px;
             height: 48px;
-            background: #4f46e5;
+            background: var(--primary);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
             margin: 0 auto 16px;
-            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+            box-shadow: 0 4px 6px -1px var(--primary-light);
         }
 
         .login-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 40px 32px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
         }
 
         .login-card h3 {
@@ -66,11 +71,11 @@
             font-size: 1.35rem;
             letter-spacing: -0.5px;
             margin-bottom: 6px;
-            color: #0f172a;
+            color: var(--text-main);
         }
 
         .login-card p {
-            color: #64748b;
+            color: var(--text-muted);
             font-size: 0.88rem;
             margin-bottom: 28px;
         }
@@ -78,7 +83,7 @@
         .form-label {
             font-weight: 600;
             font-size: 0.8rem;
-            color: #334155;
+            color: var(--text-main);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 6px;
@@ -94,27 +99,27 @@
             left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: #94a3b8;
+            color: var(--text-muted);
             font-size: 1.1rem;
             transition: all 0.2s;
             z-index: 10;
         }
 
         .form-control {
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 10px 14px 10px 42px;
-            color: #0f172a;
+            color: var(--text-main);
             font-size: 0.9rem;
             transition: all 0.2s;
         }
 
         .form-control:focus {
-            background: #ffffff;
+            background: var(--card-bg);
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-            color: #0f172a;
+            box-shadow: 0 0 0 3px var(--primary-light);
+            color: var(--text-main);
         }
 
         .form-control:focus + i {
@@ -122,20 +127,20 @@
         }
 
         .btn-submit {
-            background: #4f46e5;
-            border: 1px solid #4338ca;
+            background: var(--primary);
+            border: 1px solid var(--primary-hover);
             border-radius: 10px;
             padding: 11px;
             font-weight: 700;
             font-size: 0.95rem;
             color: white;
             transition: all 0.2s;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .btn-submit:hover {
-            background: #4338ca;
-            border-color: #3730a3;
+            background: var(--primary-hover);
+            border-color: #991b1b;
             color: white;
         }
 
@@ -143,18 +148,18 @@
             margin-top: 24px;
             text-align: center;
             font-size: 0.88rem;
-            color: #64748b;
+            color: var(--text-muted);
         }
 
         .auth-footer a {
-            color: #4f46e5;
+            color: var(--primary);
             text-decoration: none;
             font-weight: 600;
             transition: all 0.2s;
         }
 
         .auth-footer a:hover {
-            color: #4338ca;
+            color: var(--primary-hover);
             text-decoration: underline;
         }
 
@@ -165,14 +170,14 @@
             padding: 12px 16px;
         }
         .alert-success {
-            background: #f0fdf4;
-            color: #16a34a;
-            border-color: rgba(22, 163, 74, 0.12);
+            background: rgba(22, 163, 74, 0.1);
+            color: #4ade80;
+            border-color: rgba(22, 163, 74, 0.2);
         }
         .alert-danger {
-            background: #fef2f2;
-            color: #ef4444;
-            border-color: rgba(239, 68, 68, 0.12);
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border-color: rgba(239, 68, 68, 0.2);
         }
     </style>
 </head>

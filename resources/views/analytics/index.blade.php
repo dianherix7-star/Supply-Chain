@@ -90,19 +90,19 @@
                 <canvas id="sentimentDonut" height="200"></canvas>
                 <div class="row g-2 mt-2 text-center">
                     <div class="col-4">
-                        <div class="p-2 rounded" style="background:#dcfce7;">
+                        <div class="p-2 rounded" style="background: rgba(34, 197, 94, 0.1);">
                             <div class="fw-bold text-success">{{ $sentimentStats['pos_pct'] }}%</div>
                             <div class="text-muted" style="font-size:0.7rem;">Positive</div>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="p-2 rounded" style="background:#fee2e2;">
+                        <div class="p-2 rounded" style="background: rgba(239, 68, 68, 0.1);">
                             <div class="fw-bold text-danger">{{ $sentimentStats['neg_pct'] }}%</div>
                             <div class="text-muted" style="font-size:0.7rem;">Negative</div>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="p-2 rounded" style="background:#f1f5f9;">
+                        <div class="p-2 rounded" style="background: rgba(255, 255, 255, 0.05);">
                             <div class="fw-bold text-secondary">{{ $sentimentStats['neu_pct'] }}%</div>
                             <div class="text-muted" style="font-size:0.7rem;">Neutral</div>
                         </div>
@@ -221,6 +221,12 @@
 
 @push('scripts')
 <script>
+// Configure Global Chart defaults for Dark Mode
+if (typeof Chart !== 'undefined') {
+    Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+    Chart.defaults.color = '#94a3b8'; // Light slate text for dark mode
+}
+
 // Top Risk Chart
 @if($topRisk->count() > 0)
 new Chart(document.getElementById('topRiskChart').getContext('2d'), {
@@ -239,7 +245,7 @@ new Chart(document.getElementById('topRiskChart').getContext('2d'), {
         responsive: true,
         plugins: { legend: { display: false } },
         scales: {
-            x: { beginAtZero: true, max: 100, grid: { color: '#f1f5f9' } },
+            x: { beginAtZero: true, max: 100, grid: { color: 'rgba(255,255,255,0.05)' } },
             y: { grid: { display: false }, ticks: { font: { size: 12 } } }
         }
     }
@@ -285,7 +291,7 @@ new Chart(document.getElementById('gdpChart').getContext('2d'), {
         plugins: { legend: { display: false },
             tooltip: { callbacks: { label: ctx => ` GDP: $${ctx.raw}B` } }
         },
-        scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false }, ticks: { font: { size: 10 } } } }
+        scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { grid: { display: false }, ticks: { font: { size: 10 } } } }
     }
 });
 @endif
@@ -310,7 +316,7 @@ new Chart(document.getElementById('inflationChart').getContext('2d'), {
         plugins: { legend: { display: false },
             tooltip: { callbacks: { label: ctx => ` Inflasi: ${ctx.raw}%` } }
         },
-        scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false }, ticks: { font: { size: 10 } } } }
+        scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { grid: { display: false }, ticks: { font: { size: 10 } } } }
     }
 });
 @endif
@@ -335,7 +341,7 @@ new Chart(document.getElementById('currencyChart').getContext('2d'), {
         plugins: { legend: { display: false },
             tooltip: { callbacks: { label: ctx => ` 1 USD = ${ctx.raw} ${ctx.label}` } }
         },
-        scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+        scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { grid: { display: false } } }
     }
 });
 @endif
@@ -358,7 +364,13 @@ new Chart(document.getElementById('regionRiskChart').getContext('2d'), {
     options: {
         responsive: true,
         scales: {
-            r: { beginAtZero: true, max: 100, ticks: { font: { size: 10 } } }
+            r: { 
+                beginAtZero: true, 
+                max: 100, 
+                ticks: { font: { size: 10 }, backdropColor: 'transparent', color: '#94a3b8' },
+                grid: { color: 'rgba(255,255,255,0.1)' },
+                angleLines: { color: 'rgba(255,255,255,0.1)' }
+            }
         },
         plugins: { legend: { display: false } }
     }

@@ -89,87 +89,89 @@
 <!-- Table -->
 <div class="card shadow-sm">
     <div class="card-body p-0">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-dark">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4" width="50">No</th>
+                        <th>Negara</th>
+                        <th class="text-end">GDP (USD)</th>
+                        <th class="text-center">Inflasi %</th>
+                        <th class="text-end">Populasi</th>
+                        <th class="text-end">Ekspor (USD)</th>
+                        <th class="text-end">Impor (USD)</th>
+                        <th class="text-center">Tahun</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @forelse($economicData as $eco)
                 <tr>
-                    <th class="ps-4" width="50">No</th>
-                    <th>Negara</th>
-                    <th class="text-end">GDP (USD)</th>
-                    <th class="text-center">Inflasi %</th>
-                    <th class="text-end">Populasi</th>
-                    <th class="text-end">Ekspor (USD)</th>
-                    <th class="text-end">Impor (USD)</th>
-                    <th class="text-center">Tahun</th>
-                    <th class="text-center">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-            @forelse($economicData as $eco)
-            <tr>
-                <td class="ps-4 text-muted">{{ $economicData->firstItem() + $loop->index }}</td>
-                <td>
-                    <div class="d-flex align-items-center gap-2">
-                        @if($eco->country?->flag_url)
-                        <img src="{{ $eco->country->flag_url }}" width="32" height="21"
-                             style="border-radius:3px;border:1px solid #e2e8f0;object-fit:cover;"
-                             alt="{{ $eco->country->country_name }}"
-                             loading="lazy">
-                        @endif
-                        <div>
-                            <div class="fw-semibold small">{{ $eco->country?->country_name ?? '—' }}</div>
-                            <div class="text-muted" style="font-size:0.7rem;">{{ $eco->country?->region }}</div>
+                    <td class="ps-4 text-muted">{{ $economicData->firstItem() + $loop->index }}</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            @if($eco->country?->flag_url)
+                            <img src="{{ $eco->country->flag_url }}" width="32" height="21"
+                                 style="border-radius:3px;border:1px solid #e2e8f0;object-fit:cover;"
+                                 alt="{{ $eco->country->country_name }}"
+                                 loading="lazy">
+                            @endif
+                            <div>
+                                <div class="fw-semibold small">{{ $eco->country?->country_name ?? '—' }}</div>
+                                <div class="text-muted" style="font-size:0.7rem;">{{ $eco->country?->region }}</div>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td class="text-end">
-                    @if($eco->gdp)
-                    <span class="fw-semibold text-primary">${{ number_format($eco->gdp / 1e9, 1) }}B</span>
-                    @else
-                    <span class="text-muted">—</span>
-                    @endif
-                </td>
-                <td class="text-center">
-                    @if($eco->inflation !== null)
-                    @php $infColor = $eco->inflation > 10 ? 'danger' : ($eco->inflation > 5 ? 'warning' : 'success'); @endphp
-                    <span class="badge bg-{{ $infColor }}">{{ number_format($eco->inflation, 1) }}%</span>
-                    @else
-                    <span class="text-muted">—</span>
-                    @endif
-                </td>
-                <td class="text-end text-muted small">
-                    {{ $eco->population ? number_format($eco->population / 1e6, 1) . 'M' : '—' }}
-                </td>
-                <td class="text-end text-muted small">
-                    {{ $eco->exports ? '$' . number_format($eco->exports / 1e9, 1) . 'B' : '—' }}
-                </td>
-                <td class="text-end text-muted small">
-                    {{ $eco->imports ? '$' . number_format($eco->imports / 1e9, 1) . 'B' : '—' }}
-                </td>
-                <td class="text-center">
-                    <span class="badge bg-light text-dark border">{{ $eco->year }}</span>
-                </td>
-                <td class="text-center">
-                    @if($eco->country)
-                    <form action="{{ route('economic.fetch-one', $eco->country) }}" method="POST">
-                        @csrf
-                        <button class="btn btn-outline-primary btn-sm" title="Refresh dari World Bank">
-                            <i class="bi bi-arrow-clockwise"></i>
-                        </button>
-                    </form>
-                    @endif
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="9" class="text-center py-5 text-muted">
-                    <i class="bi bi-graph-up display-4 d-block mb-2 opacity-25"></i>
-                    Belum ada data ekonomi.<br>
-                    <small>Klik <strong>"Fetch Semua"</strong> untuk mengambil data dari World Bank API.</small>
-                </td>
-            </tr>
-            @endforelse
-            </tbody>
-        </table>
+                    </td>
+                    <td class="text-end">
+                        @if($eco->gdp)
+                        <span class="fw-semibold text-primary">${{ number_format($eco->gdp / 1e9, 1) }}B</span>
+                        @else
+                        <span class="text-muted">—</span>
+                        @endif
+                    </td>
+                    <td class="text-center">
+                        @if($eco->inflation !== null)
+                        @php $infColor = $eco->inflation > 10 ? 'danger' : ($eco->inflation > 5 ? 'warning' : 'success'); @endphp
+                        <span class="badge bg-{{ $infColor }}">{{ number_format($eco->inflation, 1) }}%</span>
+                        @else
+                        <span class="text-muted">—</span>
+                        @endif
+                    </td>
+                    <td class="text-end text-muted small">
+                        {{ $eco->population ? number_format($eco->population / 1e6, 1) . 'M' : '—' }}
+                    </td>
+                    <td class="text-end text-muted small">
+                        {{ $eco->exports ? '$' . number_format($eco->exports / 1e9, 1) . 'B' : '—' }}
+                    </td>
+                    <td class="text-end text-muted small">
+                        {{ $eco->imports ? '$' . number_format($eco->imports / 1e9, 1) . 'B' : '—' }}
+                    </td>
+                    <td class="text-center">
+                        <span class="badge bg-light text-dark border">{{ $eco->year }}</span>
+                    </td>
+                    <td class="text-center">
+                        @if($eco->country)
+                        <form action="{{ route('economic.fetch-one', $eco->country) }}" method="POST">
+                            @csrf
+                            <button class="btn btn-outline-primary btn-sm" title="Refresh dari World Bank">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </form>
+                        @endif
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="9" class="text-center py-5 text-muted">
+                        <i class="bi bi-graph-up display-4 d-block mb-2 opacity-25"></i>
+                        Belum ada data ekonomi.<br>
+                        <small>Klik <strong>"Fetch Semua"</strong> untuk mengambil data dari World Bank API.</small>
+                    </td>
+                </tr>
+                @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
     @if($economicData->hasPages())
     <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">

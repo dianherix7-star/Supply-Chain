@@ -34,6 +34,7 @@
         <small class="text-muted">Total: {{ $countries->total() }} negara tersimpan</small>
     </div>
 
+    @if(Auth::check() && Auth::user()->isAdmin())
     <div class="d-flex gap-2">
         <a href="{{ route('countries.import') }}"
            class="btn btn-outline-primary"
@@ -44,6 +45,7 @@
             <i class="bi bi-plus-lg me-1"></i> Tambah Manual
         </a>
     </div>
+    @endif
 </div>
 
 @if(session('success'))
@@ -98,7 +100,9 @@
                         <th>Region</th>
                         <th>Populasi</th>
                         <th>Mata Uang</th>
+                        @if(Auth::check() && Auth::user()->isAdmin())
                         <th class="text-center" width="140">Aksi</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -166,6 +170,7 @@
                             <small>{{ $country->currency ?? '—' }}</small>
                         </td>
 
+                        @if(Auth::check() && Auth::user()->isAdmin())
                         <td class="text-center">
                             <a href="{{ route('countries.edit', $country->id) }}"
                                class="btn btn-outline-secondary btn-sm px-2 py-1" title="Edit">
@@ -182,6 +187,7 @@
                                 </button>
                             </form>
                         </td>
+                        @endif
                     </tr>
                 @empty
                     <tr>

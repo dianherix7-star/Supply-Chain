@@ -106,7 +106,7 @@
 
 <!-- Table -->
 <div class="card shadow-sm">
-    <div class="card-body p-0">
+    <div class="card-body p-0"><div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
             <thead class="table-dark">
                 <tr>
@@ -119,7 +119,9 @@
                     <th>💨 Angin</th>
                     <th>⚡ Risiko Badai</th>
                     <th>Diperbarui</th>
+                    @if(Auth::check() && Auth::user()->isAdmin())
                     <th class="text-center" width="100">Aksi</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -195,6 +197,7 @@
                         {{ $item->recorded_at ? \Carbon\Carbon::parse($item->recorded_at)->diffForHumans() : '—' }}
                     </td>
 
+                    @if(Auth::check() && Auth::user()->isAdmin())
                     <td class="text-center">
                         <form action="{{ route('weather.fetch-one', $item->country->id) }}" method="POST">
                             @csrf
@@ -203,6 +206,7 @@
                             </button>
                         </form>
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
@@ -216,7 +220,7 @@
             @endforelse
 
             </tbody>
-        </table>
+        </table></div>
     </div>
 
     @if($weatherData->hasPages())

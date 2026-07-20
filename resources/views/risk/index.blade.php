@@ -9,6 +9,7 @@
         <h4 class="fw-bold mb-1">⚡ Risk Score Dashboard</h4>
         <small class="text-muted">Kalkulasi risiko supply chain berdasarkan cuaca, mata uang, inflasi, dan berita</small>
     </div>
+    @if(Auth::check() && Auth::user()->isAdmin())
     <form action="{{ route('risk.calculate-all') }}" method="POST">
         @csrf
         <button type="submit" class="btn btn-primary"
@@ -16,6 +17,7 @@
             <i class="bi bi-calculator me-1"></i> Hitung Semua Risk Score
         </button>
     </form>
+    @endif
 </div>
 
 @if(session('success'))
@@ -163,7 +165,9 @@
                     <th class="text-center">📰 Berita<br><small class="fw-normal opacity-75">/25</small></th>
                     <th class="text-center">Total<br><small class="fw-normal opacity-75">/100</small></th>
                     <th class="text-center">Level</th>
+                    @if(Auth::check() && Auth::user()->isAdmin())
                     <th class="text-center" width="80">Aksi</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -224,14 +228,16 @@
                         </span>
                     </td>
 
+                    @if(Auth::check() && Auth::user()->isAdmin())
                     <td class="text-center">
-                        <form action="{{ route('risk.calculate-one', $risk->country->id) }}" method="POST">
+                        <form action="{{ route('risk.calculate-one', $risk->country_id) }}" method="POST">
                             @csrf
                             <button class="btn btn-outline-primary btn-sm" title="Recalculate">
                                 <i class="bi bi-arrow-clockwise"></i>
                             </button>
                         </form>
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>

@@ -22,7 +22,7 @@
 .compare-row {
     display: flex;
     align-items: stretch;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .compare-row:last-child { border-bottom: none; }
@@ -30,7 +30,7 @@
 .compare-label {
     width: 160px;
     min-width: 160px;
-    background: #f8fafc;
+    background: rgba(255, 255, 255, 0.02);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,11 +38,11 @@
     text-align: center;
     font-size: 0.75rem;
     font-weight: 600;
-    color: #64748b;
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border-left: 1px solid #f1f5f9;
-    border-right: 1px solid #f1f5f9;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
 }
 
 .compare-value {
@@ -81,7 +81,7 @@
     <div class="card-header"><i class="bi bi-sliders me-2"></i>Pilih Negara yang Dibandingkan</div>
     <div class="card-body">
         <form action="{{ route('compare.result') }}" method="GET" class="row g-3 align-items-end">
-            <div class="col-md-5">
+            <div class="col-md">
                 <label class="form-label fw-semibold small text-primary">🔵 Negara A</label>
                 <select name="country_a" class="form-select" required>
                     <option value="">Pilih Negara A...</option>
@@ -93,10 +93,10 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-1 text-center pb-1">
+            <div class="col-md-auto text-center pb-1 px-md-3">
                 <span class="fw-bold text-muted fs-4">VS</span>
             </div>
-            <div class="col-md-5">
+            <div class="col-md">
                 <label class="form-label fw-semibold small text-purple" style="color:#8b5cf6;">🟣 Negara B</label>
                 <select name="country_b" class="form-select" required>
                     <option value="">Pilih Negara B...</option>
@@ -108,9 +108,9 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-1">
-                <button type="submit" class="btn btn-primary w-100">
-                    <i class="bi bi-arrow-left-right"></i> Compare
+            <div class="col-md-auto">
+                <button type="submit" class="btn btn-primary px-4 w-100 text-nowrap">
+                    <i class="bi bi-arrow-left-right me-1"></i> Compare
                 </button>
             </div>
         </form>
@@ -306,16 +306,16 @@
         <div class="compare-row">
             <div class="compare-value">
                 <div class="text-center">
-                    <div class="small"><span class="badge" style="background:#dcfce7;color:#16a34a;">+{{ $countryA['pos_news'] }}</span>
-                    <span class="badge ms-1" style="background:#fee2e2;color:#dc2626;">-{{ $countryA['neg_news'] }}</span></div>
+                    <div class="small"><span class="badge" style="background:rgba(34,197,94,0.1);color:#22c55e;">+{{ $countryA['pos_news'] }}</span>
+                    <span class="badge ms-1" style="background:rgba(239,68,68,0.1);color:#ef4444;">-{{ $countryA['neg_news'] }}</span></div>
                     <small class="text-muted">{{ $countryA['total_news'] }} berita</small>
                 </div>
             </div>
             <div class="compare-label">📰 Berita</div>
             <div class="compare-value">
                 <div class="text-center">
-                    <div class="small"><span class="badge" style="background:#dcfce7;color:#16a34a;">+{{ $countryB['pos_news'] }}</span>
-                    <span class="badge ms-1" style="background:#fee2e2;color:#dc2626;">-{{ $countryB['neg_news'] }}</span></div>
+                    <div class="small"><span class="badge" style="background:rgba(34,197,94,0.1);color:#22c55e;">+{{ $countryB['pos_news'] }}</span>
+                    <span class="badge ms-1" style="background:rgba(239,68,68,0.1);color:#ef4444;">-{{ $countryB['neg_news'] }}</span></div>
                     <small class="text-muted">{{ $countryB['total_news'] }} berita</small>
                 </div>
             </div>
@@ -382,8 +382,9 @@ new Chart(document.getElementById('radarCompare').getContext('2d'), {
         responsive: true,
         scales: {
             r: { beginAtZero: true, max: 25,
-                 ticks: { stepSize: 5, font: { size: 11 } },
-                 grid: { color: '#f1f5f9' }
+                 ticks: { stepSize: 5, font: { size: 11 }, backdropColor: 'transparent', color: '#94a3b8' },
+                 grid: { color: 'rgba(255,255,255,0.05)' },
+                 angleLines: { color: 'rgba(255,255,255,0.05)' }
             }
         },
         plugins: { legend: { position: 'bottom', labels: { padding: 16 } } }
