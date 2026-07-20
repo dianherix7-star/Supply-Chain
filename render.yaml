@@ -1,0 +1,85 @@
+# render.yaml — Render Blueprint
+# Dokumentasi: https://render.com/docs/blueprint-spec
+
+services:
+  # ─── Web Service (Laravel App) ────────────────────────────
+  - type: web
+    name: supply-chain-global
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free           # Ganti ke "starter" jika butuh lebih
+    region: singapore    # Pilih region terdekat
+
+    # Health check agar Render tahu app sudah ready
+    healthCheckPath: /
+
+    # Environment variables (yang TIDAK sensitif bisa di sini)
+    # Yang SENSITIF (DB password, APP_KEY) isi via Render Dashboard
+    envVars:
+      - key: APP_NAME
+        value: "Supply Chain Global"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        fromService:
+          type: web
+          name: supply-chain-global
+          property: host
+
+      # APP_KEY — auto generate, WAJIB diisi di Dashboard atau pakai ini:
+      - key: APP_KEY
+        generateValue: true
+
+      # Database — isi dari Render PostgreSQL atau MySQL eksternal
+      - key: DB_CONNECTION
+        value: mysql       # Ganti ke "pgsql" jika pakai Render PostgreSQL
+      - key: DB_HOST
+        fromDatabase:
+          name: supply-chain-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: supply-chain-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: supply-chain-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: supply-chain-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: supply-chain-db
+          property: password
+
+      # Session & Cache pakai file (tidak butuh DB koneksi tambahan)
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: error
+
+      # API Keys — isi di Render Dashboard agar aman
+      - key: NEWS_API_KEY
+        sync: false   # Harus diisi manual di Render Dashboard
+      - key: GNEWS_API_KEY
+        sync: false
+
+# ─── Database (PostgreSQL gratis di Render) ───────────────
+databases:
+  - name: supply-chain-db
+    plan: free
+    region: singapore
+    databaseName: supply_chain
+    user: supply_chain_user

@@ -1,0 +1,41 @@
+# Dependency directories
+/vendor
+/node_modules
+
+# Environment files 
+.env
+.env.*
+!.env.example
+
+# Build artifacts 
+/public/build
+/public/hot
+
+# Git
+/.git
+/.gitignore
+
+# IDE & OS files
+/.idea
+/.vscode
+/.fleet
+/.nova
+/.zed
+.DS_Store
+Thumbs.db
+
+# Test & dev files
+/tests
+phpunit.xml
+*.log
+
+# Docs
+README.md
+
+# Storage (runtime, bukan source code)
+/storage/*.key
+/storage/pail
+/storage/logs/*.log
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*
