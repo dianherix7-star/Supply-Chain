@@ -450,6 +450,13 @@
         <i class="bi bi-file-earmark-text"></i> Articles
     </a>
 
+    @if(Auth::check() && Auth::user()->isAdmin())
+    <a href="{{ route('users.index') }}"
+       class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+        <i class="bi bi-people"></i> Users Management
+    </a>
+    @endif
+
     <div class="sidebar-footer">
         <div class="d-flex align-items-center gap-2 px-2 mb-2">
             <div class="rounded-circle d-flex align-items-center justify-content-center"

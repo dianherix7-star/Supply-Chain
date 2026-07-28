@@ -15,6 +15,7 @@ use App\Http\Controllers\EconomicDataController;
 use App\Http\Controllers\CompareController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -57,7 +58,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/compare/result', [CompareController::class, 'result'])->name('compare.result');
     Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics.index');
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
-    Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 
     // Watchlist (Personal to each user)
     Route::get('/watchlist', [WatchlistController::class, 'index'])->name('watchlist.index');
@@ -113,5 +113,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
         Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
         Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
+        // Users Management (Admin only)
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     });
+    
+    // Catch-all for article details, placed after admin routes to avoid shadowing /articles/create
+    Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 });

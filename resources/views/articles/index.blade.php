@@ -10,9 +10,11 @@
         <h1 class="section-title">📝 Artikel Analisis</h1>
         <p class="section-sub">Kelola artikel analisis supply chain dan risiko global</p>
     </div>
+    @if(auth()->check() && auth()->user()->role === 'admin')
     <a href="{{ route('articles.create') }}" class="btn btn-primary">
         <i class="bi bi-plus-lg me-1"></i> Tulis Artikel Baru
     </a>
+    @endif
 </div>
 
 @if($articles->count() > 0)
@@ -31,6 +33,7 @@
                     <a href="{{ route('articles.show', $article) }}" class="btn btn-sm btn-outline-primary">
                         <i class="bi bi-eye me-1"></i> Baca
                     </a>
+                    @if(auth()->check() && auth()->user()->role === 'admin')
                     <a href="{{ route('articles.edit', $article) }}" class="btn btn-sm btn-outline-warning">
                         <i class="bi bi-pencil me-1"></i> Edit
                     </a>
@@ -39,6 +42,7 @@
                         @csrf @method('DELETE')
                         <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash me-1"></i> Hapus</button>
                     </form>
+                    @endif
                 </div>
             </div>
         </div>
@@ -51,9 +55,11 @@
     <div class="card-body text-center py-5">
         <i class="bi bi-file-earmark-text display-2 d-block mb-3 opacity-25"></i>
         <h5 class="text-muted">Belum ada artikel</h5>
+        @if(auth()->check() && auth()->user()->role === 'admin')
         <a href="{{ route('articles.create') }}" class="btn btn-primary mt-2">
             <i class="bi bi-plus-lg me-1"></i> Tulis Artikel Pertama
         </a>
+        @endif
     </div>
 </div>
 @endif
